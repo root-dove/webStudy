@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reflected</title>
+</head>
+<body>
+    <h1>Reflected</h1>
+    <form action="/reflected" method="post">
+        <label for="input">Send me :</label>
+        <input type="text" id="input" name="input">
+        <button type="submit">Submit</button>
+    </form>
+    <p>content: <span th:utext="${input}"></span></p>
+    <a href="/">index</a>
+</body>
+</html>
