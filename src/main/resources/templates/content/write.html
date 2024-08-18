@@ -3,33 +3,48 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
-    
-    <th:block layout:fragment="head">
-    	<title>Spring Boot</title>
-		
-    </th:block>
-    <body>
-        <div layout:fragment="content" class="content">
-            <h2>Write</h2>
-            <br>
-            <form class="container" action="/done" method="post">
-                <div class="mb-3">
-                    <label class="form-label">아이디</label>
-                    <!-- 입력값: title -->
-                    <input type="text" class="form-control" name="id">
-                  </div>
-                <div class="mb-3">
-                  <label class="form-label">이름</label>
-                  <!-- 입력값: title -->
-                  <input type="text" class="form-control" name="name">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">내용</label>
-                  <!-- 입력값: content -->
-                  <textarea class="form-control" rows="3" name="content"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+
+<th:block layout:fragment="head">
+    <title>Spring Boot</title>
+
+</th:block>
+<body>
+<div layout:fragment="content" class="content">
+    <h2>Write</h2>
+    <br>
+
+    <form class="container" action="/done" method="post">
+        <fieldset>
+            <legend>난이도를 선택해 주세요</legend>
+            <div>
+                <input type="checkbox" id="level1" name="level1"/>
+                <label for="level1">level1</label>
+            </div>
+            <div>
+                <input type="checkbox" id="level2" name="level2"/>
+                <label for="level2">level2</label>
+            </div>
+            <div>
+                <input type="checkbox" id="level3" name="level3"/>
+                <label for="level3">level3</label>
+            </div>
+            <div>
+                <input type="checkbox" id="level4" name="level4"/>
+                <label for="level4">level4</label>
+            </div>
+        </fieldset>
+        <div class="mb-3">
+            <label class="form-label">이름</label>
+            <!-- 입력값: title -->
+            <input type="text" class="form-control" name="name">
         </div>
-    </body>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <!-- 입력값: content -->
+            <textarea class="form-control" rows="3" name="content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
 </html>

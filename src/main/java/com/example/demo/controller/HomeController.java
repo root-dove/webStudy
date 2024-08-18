@@ -20,26 +20,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-	@Autowired
-	private SalaryService salaryService;
+  @Autowired
+  private SalaryService salaryService;
 
   @GetMapping("/")
   public ModelAndView getMethodName(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("index");
     return mav;
   }
-  
+
 
   @RequestMapping(value="/home", method=RequestMethod.GET)
   public ModelAndView goHome(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("content/home");
-  
+
     List<SalaryModel> salaryList = salaryService.getSalary();
-    
+
     mav.addObject("salaryList", salaryList);
-        
+
     return mav;
-  } 
+  }
 
   @GetMapping("/reflected")
   public ModelAndView reflect(@RequestParam(required = false, defaultValue = "") String input) {
@@ -49,8 +49,25 @@ public class HomeController {
   }
 
   @PostMapping("/reflected")
-  public ModelAndView reflect2(@RequestParam(required = false, defaultValue = "") String input) {
+  public ModelAndView reflect2(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("content/reflected");
+
+    String input = request.getParameter("input");
+    if (request.getParameter("level2") != null) {
+      input = input.toLowerCase();
+    }
+
+    if (request.getParameter("level1") != null) {
+      input = input.replaceAll("script","");
+    }
+
+    if (request.getParameter("level3") != null) {
+      input = input.replaceAll("script","*");
+    }
+    if (request.getParameter("level4") != null) {
+      input = input.replaceAll("\\(","*");
+    }
+
     mav.addObject("input", input);
     return mav;
   }
@@ -65,9 +82,30 @@ public class HomeController {
   @PostMapping("/done")
   public ModelAndView done(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView("index");
-    System.out.println(request.getParameter("id")+request.getParameter("content")+request.getParameter("name"));
-    SalaryModel salaryModel = SalaryModel.builder().id((long) Integer.parseInt(request.getParameter("id"))).name(request.getParameter("name")).content(request.getParameter("content")).build();
-    
+    String content = request.getParameter("content");
+    String name = request.getParameter("name");
+
+    if (request.getParameter("level2") != null) {
+      content = content.toLowerCase();
+      name = name.toLowerCase();
+    }
+
+    if (request.getParameter("level1") != null) {
+      content = content.replaceAll("script","");
+      name = name.replaceAll("script","");
+    }
+
+    if (request.getParameter("level3") != null) {
+      content = content.replaceAll("script","*");
+      name = name.replaceAll("script","*");
+    }
+    if (request.getParameter("level4") != null) {
+      content = content.replaceAll("\\(","*");
+      name = name.replaceAll("\\(","*");
+    }
+
+    SalaryModel salaryModel = SalaryModel.builder().name(name).content(content).build();
+
     mav.addObject("input", request);
     salaryService.insert(salaryModel);
     return mav;
